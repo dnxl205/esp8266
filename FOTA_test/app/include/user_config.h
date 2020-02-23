@@ -30,7 +30,7 @@
 #define STA_SSID "Tenda_D3B340"
 #define STA_PASS "12345678"
 
-#define OTA_SERVER_IP   "192.168.0.108"
+#define OTA_SERVER_IP   "192.168.0.109"
 #define OTA_SERVER_PORT 9527
 
 #endif

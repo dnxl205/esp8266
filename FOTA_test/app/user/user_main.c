@@ -21,13 +21,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
 #include "ets_sys.h"
 #include "osapi.h"
+#include "os_type.h"
+#include "eagle_soc.h"
 
+#include "driver/uart.h"  //串口0需要的头文件
+#include "gpio.h"  //端口控制需要的头文件
+#include "driver/key.h"
 #include "user_interface.h"
 #include "user_config.h"
-
 #include "modules/fota_upgrade.h"
 #include "modules/wifi.h"
 
@@ -76,6 +79,27 @@
 
 uint32 priv_param_start_sec;
 
+/*********************************************************************************
+ * @brief      开关输入引脚配置
+ ********************************************************************************/
+#define SWITCH_Pin_NUM         0
+#define SWITCH_Pin_FUNC        FUNC_GPIO0
+#define SWITCH_Pin_MUX         PERIPHS_IO_MUX_GPIO0_U
+
+#define SWITCH_Pin_Rd_Init()   GPIO_DIS_OUTPUT(SWITCH_Pin_NUM)
+#define SWITCH_Pin_Wr_Init()   GPIO_OUTPUT_SET(SWITCH_Pin_NUM,0)
+#define SWITCH_Pin_Set_High()  GPIO_OUTPUT_SET(SWITCH_Pin_NUM,1)
+#define SWITCH_Pin_Set_Low()   GPIO_OUTPUT_SET(SWITCH_Pin_NUM,0)
+#define SWITCH_Pin_State       ( GPIO_INPUT_GET(SWITCH_Pin_NUM) != 0 )
+
+/*********************************************************************************
+ * @brief      按键相关变量
+ ********************************************************************************/
+static struct keys_param switch_param;
+static struct single_key_param *switch_signle;
+static bool status = true;
+
+
 static const partition_item_t at_partition_table[] = {
     { SYSTEM_PARTITION_BOOTLOADER, 						0x0, 												0x1000},
     { SYSTEM_PARTITION_OTA_1,   						0x1000, 											SYSTEM_PARTITION_OTA_SIZE},
@@ -123,13 +147,45 @@ wifiConnectCb(uint8_t status){
     os_timer_arm(&wifistate_checktimer, 2000, true);
 }
 
-void delay_ms(uint16 x)
+/*********************************************************************************
+ * @brief      按键短按回调函数
+ ********************************************************************************/
+static void Switch_ShortPress_Handler( void )
 {
-	for(;x>0;x--)
-	{
-		system_soft_wdt_feed();//这里我们喂下看门狗  ，不让看门狗复位
-		os_delay_us(1000);
-	}
+	os_printf("--------Switch_ShortPress_Handler---------\n");
+    if( status == true )
+    {
+        GPIO_OUTPUT_SET(GPIO_ID_PIN(2), 1);
+        os_printf("---------status = true--------\n");
+
+        status = false;
+    }
+    else
+    {
+        GPIO_OUTPUT_SET(GPIO_ID_PIN(2), 0);
+        os_printf("---------status = false--------\n");
+        os_printf("-----------try fota -----------\n");
+        wifi_set_opmode(STATION_MODE);
+        WIFI_Connect(STA_SSID, STA_PASS, wifiConnectCb);
+
+        status = true;
+    }
+}
+
+
+/*********************************************************************************
+ * @brief      按键初始化函数
+ ********************************************************************************/
+void drv_Switch_Init( void )
+{
+    switch_signle = key_init_single( SWITCH_Pin_NUM, SWITCH_Pin_MUX,
+                                     SWITCH_Pin_FUNC,
+                                     NULL,
+                                     &Switch_ShortPress_Handler );
+    switch_param.key_num = 1;
+    switch_param.single_key = &switch_signle;
+
+    key_init( &switch_param );
 }
 
 
@@ -138,26 +194,33 @@ void ICACHE_FLASH_ATTR
 user_init(void)
 {
 
-    wifi_set_opmode(STATION_MODE);
+    //wifi_set_opmode(STATION_MODE);
 
     INFO("[IMALIUBO] SDK version:%s\n", system_get_sdk_version());
 
     uart_init_3(115200,115200);
+
+    PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO2_U, FUNC_GPIO2);//nodemcu的板载LED
+    GPIO_OUTPUT_SET(GPIO_ID_PIN(2), 0);
+    PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U, FUNC_GPIO0);//GPIO0为nodemcu板载按键
+    GPIO_DIS_OUTPUT(GPIO_ID_PIN(0));//GPIO0为高
 
 
     INFO(" \r\n[IMALIUBO] SDK version:%s\r\n", system_get_sdk_version());
     INFO("[IMALIUBO] system_get_free_heap_size=%d\r\n",system_get_free_heap_size());
 
     if (system_upgrade_userbin_check() == UPGRADE_FW_BIN1) {
-        INFO("\r\n当前bin:---------user1---------- \r\n");
+        INFO("\r\nnow bin:---------user1---------- \r\n");
     } else if (system_upgrade_userbin_check() == UPGRADE_FW_BIN2) {
-        INFO("\r\n当前bin:---------user2---------- \r\n");
+        INFO("\r\nnow bin:---------user2---------- \r\n");
     }
 
     //wifiConnectCb中将会检查升级
-    WIFI_Connect(STA_SSID, STA_PASS, wifiConnectCb);
+    //WIFI_Connect(STA_SSID, STA_PASS, wifiConnectCb);
 
     INFO("[IAMLIUBO] system_free_size = %d\n", system_get_free_heap_size());
     
+    drv_Switch_Init();
+
 }
 

@@ -17,10 +17,10 @@
  /opt/xtensa-lx106-elf/xtensa-lx106-elf/include/sys/cdefs.h \
  /opt/xtensa-lx106-elf/xtensa-lx106-elf/include/sys/string.h \
  ../../include/os_type.h ../../include/ets_sys.h ../include/user_config.h \
- ../../include/user_interface.h ../../include/ip_addr.h \
- ../../include/queue.h ../../include/spi_flash.h ../../include/gpio.h \
- ../include/modules/fota_upgrade.h ../include/driver/uart.h \
- ../include/driver/uart_register.h ../../include/eagle_soc.h \
- ../../include/c_types.h ../../include/gpio.h ../../include/mem.h \
- ../../include/upgrade.h ../include/modules/wifi.h \
- ../../include/os_type.h
+ ../../include/os_type.h ../../include/eagle_soc.h \
+ ../include/driver/uart.h ../include/driver/uart_register.h \
+ ../../include/c_types.h ../../include/user_interface.h \
+ ../../include/ip_addr.h ../../include/queue.h ../../include/spi_flash.h \
+ ../../include/gpio.h ../../include/gpio.h ../include/driver/key.h \
+ ../include/modules/fota_upgrade.h ../../include/mem.h \
+ ../../include/upgrade.h ../include/modules/wifi.h
