@@ -27,11 +27,16 @@
 
 #define INFO( format, ... ) os_printf( format, ## __VA_ARGS__ )
 
-#define STA_SSID "Tenda_D3B340"
+#define STA_SSID "test"
 #define STA_PASS "12345678"
 
+<<<<<<< Updated upstream
 #define OTA_SERVER_IP   "192.168.0.108"
 #define OTA_SERVER_PORT 9527
+=======
+#define OTA_SERVER_IP   "47.105.130.114"
+#define OTA_SERVER_PORT 80	//本机Tomca端口9527，远程服务器端口80
+>>>>>>> Stashed changes
 
 #endif
 

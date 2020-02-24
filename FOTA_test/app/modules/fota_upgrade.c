@@ -135,8 +135,13 @@ fota_upgrade_begin(struct espconn *pespconn, struct upgrade_server_info *server)
     }
 
     //测试时使用本地服务器Tomcat，文件URL为http://localhost:9527/my_data/8266bin/user1.4096.new.6.bin
-    os_sprintf(server->url, "GET /my_data/8266bin/%s HTTP/1.0\r\nHost: "IPSTR":%d\r\n"pheadbuffer"",
+//    os_sprintf(server->url, "GET /my_data/8266bin/%s HTTP/1.0\r\nHost: "IPSTR":%d\r\n"pheadbuffer"",
+//               user_bin,IP2STR(server->ip));
+
+    //测试时使用远程Linux服务器，文件URL为http://47.105.130.114:80/user1.4096.new.6.bin
+    os_sprintf(server->url, "GET /%s HTTP/1.0\r\nHost: "IPSTR":%d\r\n"pheadbuffer"",
                user_bin,IP2STR(server->ip));
+
     
     INFO("[IAMLIUBO] %s\n",server->url);
 
