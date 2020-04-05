@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">rgb_test</string>
-    <string name="titil1_name">常见颜色</string>
-    <string name="titil2_name">返回主页面</string>
-    <string name="confirm">OK</string>
-    <string name="cancel">Cancel</string>
-</resources>
