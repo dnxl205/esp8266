@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>这些年我们一起到过的城市</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/> 
+    <style>
+        html,body,#container{
+            margin:0;
+            height:100%;
+        }
+        .amap-icon img,
+        .amap-marker-content img{
+            width: 25px;
+            height: 34px;
+        }
+        .marker {
+            position: absolute;
+            top: -20px;
+            right: -118px;
+            color: #fff;
+            padding: 4px 10px;
+            box-shadow: 1px 1px 1px rgba(10, 10, 10, .2);
+            white-space: nowrap;
+            font-size: 12px;
+            font-family: "";
+            background-color: #25A5F7;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=7a2a0fb657f45efd11fa99687700c4c9&plugin=AMap.DistrictSearch"></script>
+<script type="text/javascript">
+    //初始化地图对象，加载地图
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+        mapStyle:"amap://styles/darkblue",//极夜蓝主题
+        center: [114.30304, 30.594911],//地图中心点，石家庄
+        zoom: 5 //地图显示的缩放级别
+    });
+    
+    var district = null;
+    var polygons=[];
+    function drawBounds(place) {
+        //加载行政区划插件
+        if(!district){
+            //实例化DistrictSearch
+            var opts = {
+                subdistrict: 0,   //获取边界不需要返回下级行政区
+                extensions: 'all',  //返回行政区边界坐标组等具体信息
+                level: 'province'  //查询行政级别为 省
+            };
+            district = new AMap.DistrictSearch(opts);
+        }
+        //行政区查询
+        district.setLevel("province")
+        district.search(place, function(status, result) {
+            //map.remove(polygons)//清除上次结果
+            polygons = [];
+            var bounds = result.districtList[0].boundaries;
+            if (bounds) {
+                for (var i = 0, l = bounds.length; i < l; i++) {
+                    //生成行政区划polygon
+                    var polygon = new AMap.Polygon({
+                        strokeWeight: 1,
+                        path: bounds[i],
+                        fillOpacity: 0.4,
+                        fillColor: '#80d8ff',
+                        strokeColor: '#0091ea'
+                    });
+                    polygons.push(polygon);
+                }
+            }
+            map.add(polygons)
+            //map.setFitView(polygons);//视口自适应
+        });
+    }
+
+    //绘制指定省份外轮廓并填充
+    var places = new Array("广西","广东","湖北","湖南","安徽","江西","福建","江苏","河南","陕西","四川","贵州","上海","重庆");
+    for(var i = 0; i<places.length; i++){
+          drawBounds(places[i]);
+    }
+
+    // 实例化点标记
+    var laibin = {name:"来宾",x:109.229772,y:23.733766};
+    var xincheng = {name:"忻城",x:108.665666,y:24.066235};
+    var heshan = {name:"合山",x:108.886082,y:23.806536};
+    var guilin = {name:"桂林",x:110.299121,y:25.274215};
+    var liuzhou = {name:"柳州",x:109.411703,y:24.314617};
+    var huangshi = {name:"黄石",x:115.077048,y:30.220074};
+    var changsha = {name:"长沙",x:112.938888,y:28.228272};
+    var wuhan = {name:"武汉",x:114.30304,y:30.594911};
+    var guangzhou = {name:"广州",x:113.264385,y:23.129112};
+
+    var ezhou = {name:"鄂州",x:114.890593,y:30.396536};
+    var guiyang = {name:"贵阳",x:106.630153,y:26.647661};
+    var chengdu = {name:"成都",x:104.066143,y:30.573095};
+    var shiyan = {name:"十堰",x:110.798657,y:32.629034};
+    var xian = {name:"西安",x:108.939621,y:34.343147};
+    var zhengzhou = {name:"郑州",x:113.658097,y:34.745795};
+    var shenzhen = {name:"深圳",x:114.085947,y:22.547};
+    var xiamen = {name:"厦门",x:118.110221,y:24.490474};
+    var chongqing = {name:"重庆",x:106.550464,y:29.563761};
+    var yichang = {name:"宜昌",x:111.286451,y:30.69187};
+    var jiujiang = {name:"九江",x:115.992811,y:29.712034};
+    var jingdezhen = {name:"景德镇",x:117.214664,y:29.29256};
+    var nanjing = {name:"南京",x:118.796623,y:32.059352};
+    var suzhou = {name:"苏州",x:120.619585,y:31.299379};
+    var shanghai = {name:"上海",x:121.473658,y:31.230378};
+    var nanchang = {name:"南昌",x:115.857963,y:28.683016};
+    var hefei = {name:"合肥",x:117.227308,y:31.82057};
+
+    var cities = [ezhou,laibin,xincheng,heshan,guilin,liuzhou,huangshi,changsha,wuhan,guangzhou,guiyang,chengdu,shiyan,xian,zhengzhou,shenzhen,xiamen,chongqing,yichang,jiujiang,
+                        jingdezhen,nanjing,suzhou,shanghai,nanchang,hefei];
+
+    function addMarker(city) {
+        marker = new AMap.Marker({
+            icon: "http://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+            position: [city.x,city.y],
+            offset: new AMap.Pixel(-13, -30)
+        });
+      marker.setMap(map);
+      // 设置鼠标划过点标记显示的文字提示
+      marker.setTitle(city.name);
+    }
+
+    for(var i = 0; i<cities.length; i++){
+          addMarker(cities[i]);
+    }
+
+</script>
+</body>
+</html>
