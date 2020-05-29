@@ -24,7 +24,7 @@ public class ExampleUnitTest {
     public static void main(String[] args) {
         System.out.println("001");
 
-        DefaultProfile profile = DefaultProfile.getProfile("cn-shanghai", "LTAI4FnP9CaEubeyK5F4EaeJ", "bd1cICKNbuhMmcXaIDhbRxaeOpx8s4");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-shanghai", "<key账户>", "<密钥>");
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
