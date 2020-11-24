@@ -413,6 +413,125 @@ void OLED_Init(void)
 }
 
 
+void OLED_ShowLine(u8 x1,u8 y1,u8 x2,u8 y2)
+{	
+	u8 i=0,temp=0;
+	u8 interChange = 0;
+	u8 dx=0,dy=0;
+	int sign_x=0,sign_y=0;	
+	u8 x = 0;		   
+	u16 y = 0;	       
+	u16 middle = 0;    
+	
+	//取绝对值，并标记
+	x2-x1>=0?(dx=x2-x1,sign_x=1):(dx=x1-x2,sign_x=-1);
+	y2-y1>=0?(dy=y2-y1,sign_y=1):(dy=y1-y2,sign_y=-1);
+	
+	if(dx<dy)				//交换坐标轴,保证dx为长轴
+	{
+		temp = dx;
+		dx = dy;
+		dy = temp;
+		interChange = 1;	//标记
+	}
+	
+	x = x1;            		//直线与x=x1的交点的x坐标
+	y = (dy<<1);       		//直线与x=x1的交点的y坐标,由于在判别式中y1相消，可以去掉y1
+	middle = dx;       		//第一个中点，由于在判别式中y1相消，可以去掉y1
+	
+	OLED_DrawPoint(x1,y1,1);//画起点
+	OLED_DrawPoint(x2,y2,1);//画终点
+	
+	
+	for(i=0;i<(dx-1);i++)	//中间线段
+	{
+		
+		if(interChange==0)
+		{
+			x+=sign_x;
+		}else{
+			y1+=sign_y;
+		}
+
+		if(y > middle)		//若直线点在中点或之上
+		{
+			if(interChange==0)
+				y1+=sign_y;
+			else
+				x+=sign_x;
+			middle+=(dx<<1);
+		}
+		
+		OLED_DrawPoint(x,y1,1);//画点
+		
+		y += (dy<<1);
+	}
+}
+
+//只支持左上角画到右下角
+//mode:0为只画边框,1为填充
+void OLED_ShowRect(u8 x1,u8 y1,u8 x2,u8 y2,u8 fill)
+{
+	u8 i=0,j=0;
+	if(fill==0)
+	{
+		OLED_ShowLine(x1,y1,x1,y2);
+		OLED_ShowLine(x1,y1,x2,y1);
+		OLED_ShowLine(x2,y1,x2,y2);
+		OLED_ShowLine(x1,y2,x2,y2);
+	}else{
+		for(i=x1;i<=x2;i++)
+		{
+			for(j=y1;j<=y2;j++)
+				OLED_DrawPoint(i,j,1);
+		}
+	
+	}
+}
+
+//画八个方向的点(用于OLED_ShowCircle)
+void plotC(u8 x,u8 y,u8 xc,u8 yc)
+{
+	OLED_DrawPoint(xc+x,yc+y,1);
+	OLED_DrawPoint(xc+x,yc-y,1);
+	OLED_DrawPoint(xc-x,yc+y,1);
+	OLED_DrawPoint(xc-x,yc-y,1);
+	OLED_DrawPoint(xc+y,yc+x,1);
+	OLED_DrawPoint(xc+y,yc-x,1);
+	OLED_DrawPoint(xc-y,yc+x,1);
+	OLED_DrawPoint(xc-y,yc-x,1);
+}
+
+void OLED_ShowCircle(u8 xc,u8 yc,u8 r,u8 fill)
+{
+    int x=0,y=0,d=0;
+	u8 yi=0;
+    y=r;
+	d=3-2*r;
+    x=0;
+    while(x<=y)
+    {
+		if(fill==1)
+		{
+			for(yi=x;yi<=y;yi++)
+				plotC(x,yi,xc,yc);
+		}else{
+			plotC(x,y,xc,yc);
+		}
+
+        if(d<0)
+            d+=(4*x+6);
+        else
+       {
+			d+=(4*(x-y)+10);
+            y--;
+       }
+       x++;
+    }
+}
+
+
+
 
 
 
