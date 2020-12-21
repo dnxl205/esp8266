@@ -51,7 +51,10 @@ void OLED_DrawPoint(u8 x,u8 y,u8 t);
 void OLED_Fill(u8 x1,u8 y1,u8 x2,u8 y2,u8 dot);
 void OLED_ShowChar(u8 x,u8 y,u8 chr,u8 size,u8 mode);
 void OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 size);
-void OLED_ShowString(u8 x,u8 y,const u8 *p,u8 size);	 
+void OLED_ShowString(u8 x,u8 y,const u8 *p,u8 size);
+void OLED_ShowLine(u8 x1,u8 y1,u8 x2,u8 y2);
+void OLED_ShowRect(u8 x1,u8 y1,u8 x2,u8 y2,u8 fill);
+void OLED_ShowCircle(u8 xc,u8 yc,u8 r,u8 fill);
 #endif  
 	 
 

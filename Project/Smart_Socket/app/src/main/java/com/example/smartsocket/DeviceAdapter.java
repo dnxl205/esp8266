@@ -6,8 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+<<<<<<< HEAD
+=======
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +60,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Device device = mDviceList.get(position);
+<<<<<<< HEAD
 
                 //跳转到插座控制页面
                 Intent intent=new Intent(mActivity, DeviceActivity.class);
@@ -71,21 +78,31 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                 int position = holder.getLayoutPosition();
                 mOnItemLongClickListener.onItemLongClick(holder.deviceView,position);
                 return true;
+=======
+                Toast.makeText(view.getContext(),"单击："+device.getName(),Toast.LENGTH_SHORT).show();
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
             }
         });
 
         return holder;
     }
 
+<<<<<<< HEAD
     //定义一个单击接口并暴露给外部使用
     public interface OnItemClickListener{
         void onClick(CompoundButton view, String deviceName, boolean deviceStatus, int position) throws JSONException;
+=======
+    //定义一个接口并暴露给外部使用
+    public interface OnItemClickListener{
+        void onClick(String deviceName,boolean deviceStatus,int position) throws JSONException;
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
     }
     private OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
 
+<<<<<<< HEAD
     //1
     private DeviceAdapter.OnItemLongClickListener mOnItemLongClickListener;
     public interface OnItemLongClickListener{
@@ -95,6 +112,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
 
+=======
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final Device device = mDviceList.get(position);
@@ -105,17 +124,27 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         //设置switch监听器
         holder.deviceStatus_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
+<<<<<<< HEAD
             public void onCheckedChanged(CompoundButton view, boolean b) {
                 if(listener != null){
                     try {
                         listener.onClick(view,device.getName(),b,position);
+=======
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(listener != null){
+                    try {
+                        listener.onClick(device.getName(),b,position);
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
     }
 
     @Override
@@ -131,6 +160,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     public void addItem(int position, Device device){
         mDviceList.add(position,device);
         notifyItemInserted(position);
+<<<<<<< HEAD
         notifyDataSetChanged();
     }
 
@@ -140,5 +170,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         //删除动画
         notifyItemRemoved(position);
         notifyDataSetChanged();
+=======
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
     }
 }

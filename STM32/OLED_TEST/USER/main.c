@@ -21,9 +21,13 @@ int main(void)
 	uart_init(115200);	//初始化串口波特率为115200
  	LED_Init();
 	OLED_Init();				//初始化OLED
-    OLED_ShowString(0,0,"ALIENTEK",24);  
-	OLED_ShowString(0,24, "0.96' OLED TEST",16);  
- 	OLED_ShowString(0,40,"ATOM 2014/5/4",12);  
+//    OLED_ShowString(0,0,"ALIENTEK",24);  
+//	OLED_ShowString(0,24, "0.96' OLED TEST",16);  
+// 	OLED_ShowString(0,40,"ATOM 2014/5/4",12);  
+	
+	OLED_ShowCircle(90,32,15,0);
+	OLED_ShowCircle(17,32,15,1);
+	
  	OLED_ShowString(0,52,"ASCII:",12);  
  	OLED_ShowString(64,52,"CODE:",12);  
 	OLED_Refresh_Gram();//更新显示到OLED	 

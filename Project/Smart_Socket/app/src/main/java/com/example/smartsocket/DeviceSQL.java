@@ -12,7 +12,12 @@ public class DeviceSQL extends SQLiteOpenHelper {
             +"name text,"
             +"online integer,"
             +"switch integer,"
+<<<<<<< HEAD
             +"delayFlag integer)";
+=======
+            +"delayFlag integer,"
+            +"delayTime integer)";
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
 
     private Context mContext;
 
@@ -24,7 +29,11 @@ public class DeviceSQL extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_DEVICE);
+<<<<<<< HEAD
         Toast.makeText(mContext,"创建设备数据库完成",Toast.LENGTH_SHORT).show();
+=======
+        Toast.makeText(mContext,"Create succeeded",Toast.LENGTH_SHORT).show();
+>>>>>>> fe7d45f0cff4d7e1bdcbaeb013c0d35ba9fda518
     }
 
     @Override

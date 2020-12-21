@@ -26,9 +26,9 @@ void LED_Init(void)
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
-  GPIO_Init(GPIOF, &GPIO_InitStructure);//初始化
+  GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化
 	
-	GPIO_SetBits(GPIOF,GPIO_Pin_6 | GPIO_Pin_7);//GPIOA6,A7设置高，灯灭
+	GPIO_SetBits(GPIOA,GPIO_Pin_6 | GPIO_Pin_7);//GPIOA6,A7设置高，灯灭
 
 }
 
