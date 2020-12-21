@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/back_color_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#1ec46d">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c0c0c0"
+                android:layout_alignParentBottom="true"/>
+
+            <RelativeLayout
+                android:id="@+id/back"
+                android:layout_width="50dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/back"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/deviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="插座控制"
+                android:textSize="28dp"
+                android:textColor="#ffffff"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更多"
+                android:textSize="15dp"
+                android:textColor="#ffffff"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/back_color_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="#1ec46d">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/main_power"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:background="@drawable/power"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/power_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="插座已开启"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:layout_below="@id/main_power"
+                android:layout_centerHorizontal="true">
+            </TextView>
+            <TextView
+                android:id="@+id/delay_alert"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/power_text"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:layout_margin="10dp"
+                />
+            <TextView
+                android:id="@+id/timer_alert"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/delay_alert"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:layout_margin="10dp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/back_color_3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="#1ec46d">
+
+        <RelativeLayout
+            android:id="@+id/r_power"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/power"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/power_on">
+                 </ImageView>
+                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开关"
+                    android:textSize="16dp"
+                    android:textColor="#ffffff"
+                    android:layout_below="@+id/power"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="30dp">
+                <ImageView
+                    android:id="@+id/time"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/time_off">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="定时"
+                    android:textSize="16dp"
+                    android:textColor="#ffffff"
+                    android:layout_below="@+id/time"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="30dp">
+                <ImageView
+                    android:id="@+id/delay"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/delay_off">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="倒计时"
+                    android:textSize="16dp"
+                    android:textColor="#ffffff"
+                    android:layout_below="@+id/delay"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp">
+                </TextView>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -5,24 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#fafafa"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_weight="20"/>
+        android:layout_height="150dp"
+        android:layout_weight="3"
+        android:background="@drawable/shan">
+    </ImageView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="110">
+
+        <RelativeLayout
+            android:id="@+id/no_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/mountain"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/backg">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还什么都没有哦"
+                android:layout_below="@+id/mountain"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                ></TextView>
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击下面按钮立即添加设备"
+                android:layout_below="@+id/text1"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                ></TextView>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#fafafa"/>
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/Btn_addDevice"
-        android:layout_gravity="center"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dip"
+        android:layout_height="50dp"
         android:layout_weight="1"
-        android:textSize="32sp"
-        android:text="添加设备" />
+        android:background="@xml/m_button"
+        android:layout_margin="20dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="添加设备"
+        />
 
 </LinearLayout>

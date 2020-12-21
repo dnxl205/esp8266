@@ -5,42 +5,52 @@
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="15dp"
     android:layout_marginBottom="1dp"
-    android:background="@color/colorPrimary">
+    android:background="#ffffff">
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/socket"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp">
-    </ImageView>
+    <RelativeLayout
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/deviceName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="卧室插座"
-        android:textSize="22dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="15dp">
-    </TextView>
+        <ImageView
+            android:id="@+id/pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/socket"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true">
+        </ImageView>
 
-    <TextView
-        android:id="@+id/deviceStatus_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="在线"
-        android:textSize="18dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="55dp">
-    </TextView>
+        <TextView
+            android:id="@+id/deviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卧室插座"
+            android:textSize="22dp"
+            android:layout_marginLeft="100dp"
+            android:layout_alignTop="@id/pic">
+        </TextView>
 
-    <Switch
-        android:id="@+id/deviceStatus_switch"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="25dp">
-    </Switch>
+
+        <TextView
+            android:id="@+id/deviceStatus_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在线"
+            android:textSize="15dp"
+            android:layout_marginLeft="100dp"
+            android:layout_alignBottom="@id/pic"
+            android:layout_marginBottom="8dp">
+        </TextView>
+
+        <Switch
+            android:id="@+id/deviceStatus_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
+
+
+    </RelativeLayout>
 </RelativeLayout>
